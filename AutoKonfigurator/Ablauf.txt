@@ -1,0 +1,9 @@
+Begrüßung
+Bitte waehlen Sie einen Rahmen
+Rahmen anzeigen
+Welche Pakete haetten Sie gerne?
+Gewuenschtes Lieferdatum: (fruehestens xxxxxxx)
+Sind Sie zufrieden?
+Von vorne beginnen
+Bestellung abschicken
+
