@@ -5,10 +5,10 @@ public class Frame {
 	private String frameName;
 	
 	/* Konstruktor */
-	public Frame(String lineValues, String lineValues2, String frameName) {
+	public Frame(String frameName, String framePreis, String frameLieferzeit) {
 		super();
-		this.framePreis = lineValues;
-		this.frameLieferZeit = lineValues2;
+		this.framePreis = framePreis;
+		this.frameLieferZeit = frameLieferzeit;
 		this.frameName = frameName;
 	}
 	public String getFramePreis() {

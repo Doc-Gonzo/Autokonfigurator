@@ -6,12 +6,12 @@ public class Package {
 	private String packageItems;	
 	
 	/* Konstruktor */
-	public Package(String packagePreis, String packageLieferZeit, String packageName, String packageItems) {
+	public Package(String packageName, String packagePreis, String packageItems, String packageLieferZeit) {
 		super();
-		this.packagePreis = packagePreis;
-		this.packageLieferZeit = packageLieferZeit;
 		this.packageName = packageName;
+		this.packagePreis = packagePreis;
 		this.packageItems = packageItems;
+		this.packageLieferZeit = packageLieferZeit;		
 	}
 
 
