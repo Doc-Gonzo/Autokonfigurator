@@ -1,55 +1,33 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 
-public class Main {
-	
-	
-	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-	
-	String chosenColor;
-	static Frame chosenFrame;
-	Date lieferdatum;
-	static Package chosenPackage;
-	static int frameNr,packageNr;
-	static ArrayList<Frame> framesList;
-	static ArrayList<Package> packagesList, chosenPackageList = new ArrayList<Package>(1);
-	ArrayList<Order> orders;
-	Order order;
-	static boolean frameSure,packageSure,packageFull = false;
-	static int lastOrderNumber = 0;
-	static Scanner scan = new Scanner(System.in);
-	
-	static Localization german = new Localization();
-	static FileReader readerFrames,readerPackages;
-	static BufferedReader brFrames,brPackages;
-	
+public class Main {	
+	 
 	
 	/* Main Methode */
-	public static void main(String[] args) throws IOException {
-		 String answer;
+	public static void main(String[] args) throws IOException {		
 		
-		/* FileReader erstellen */		
-		try {
-			readerFrames = new FileReader("frames.csv");
-		} catch (FileNotFoundException e) {
-			System.out.print("No Configfile found. Please contact Administrator");
-		}
-		try {
-			readerPackages = new FileReader("packages.csv");
-		} catch (FileNotFoundException e) {
-			System.out.print("No Configfile found. Please contact Administrator");
-		}		
+		String answer;
+		Frame chosenFrame = new Frame("","", "");
+		int frameNr,packageNr;	
+		ArrayList<Package> chosenPackageList = new ArrayList<Package>(1);
+		boolean frameSure = false,packageSure = false,packageFull = false;
+		int lastOrderNumber = 0;
+		Scanner scan = new Scanner(System.in);
+		Localization german = new Localization();		
+		FileReader readerFrames = null,readerPackages = null;
+		Main_helper helper = new Main_helper(); 		
+		 
 		
+		/* FileReader erstellen */
+		readerFrames = helper.startFrameReader("frames.csv");
+		readerPackages = helper.startPackageReader("packages.csv");		
 		BufferedReader brFrames = new BufferedReader(readerFrames);
 		BufferedReader brPackages = new BufferedReader(readerPackages);
+		
 		/* Arraylists erstellen */
 		ArrayList<Frame> framesList = new ArrayList<>(1);
 		ArrayList<Package> packagesList = new ArrayList<>(1);
@@ -83,7 +61,7 @@ public class Main {
 			System.out.print(german.breaks);
 			
 			/* Rahmen auflisten */
-			giveFramesList(framesList);
+			helper.giveFramesList(framesList);
 			
 			/* Rahmen waehlen */
 			System.out.print(german.frameNr);
@@ -118,7 +96,7 @@ public class Main {
 
 			while(!packageFull) {
 				/* PAkete auflisten */
-				givePackagesList(packagesList);
+				helper.givePackagesList(packagesList);
 				
 				/* Paket waehlen */
 				System.out.print(german.packageNr);
@@ -155,44 +133,10 @@ public class Main {
 			for(Package package2 : chosenPackageList) {				
 				System.out.print(german.space + package2.getPackageName() + german.space + german.price + package2.getPackagePreis() + german.space + german.delTime + package2.getPackageLieferZeit() + german.breaks);
 
-			}			
-			statusZeile(chosenFrame,chosenPackageList);
+			}
+			/* gib Bestellung aus */
+			helper.statusZeile(chosenFrame,chosenPackageList);
+			scan.close();
 		}
 	}
-	
-	/* Methoden */
-	public static void giveFramesList(ArrayList<Frame> framesList) {
-		int counter = 1;
-		for(Frame frame : framesList) {
-			System.out.print("(" + counter + ")" + german.space + frame.getFrameName() + german.space + german.delTime + frame.getFrameLieferZeit() + german.days + german.space + german.price + frame.getFramePreis() + german.breaks);
-			counter ++;
-		}
-	}
-	public static void givePackagesList(ArrayList<Package> packagesList) {
-		int counter = 1;
-		for(Package packages : packagesList) {
-			System.out.print("(" + counter + ")"+ german.space + packages.getPackageName() + german.space + packages.getPackageItems() + german.space + german.delTime + packages.getPackageLieferZeit() + german.space + german.price + packages.getPackagePreis() + german.breaks );
-			counter ++;
-		}		
-	}
-	/* Preis & Lieferzeit berechnen */
-	public static void statusZeile(Frame chosenFrame2,ArrayList<Package> packagesList2) {
-		int gesamtPreis = Integer.parseInt(chosenFrame2.getFramePreis());
-		int lieferTage = Integer.parseInt(chosenFrame2.getFrameLieferZeit());
-		Date lieferDatum = new Date();
-		
-		/* Kalender mit heutigem Datum */
-		Calendar c = Calendar.getInstance();
-	    c.setTime(lieferDatum);		
-		
-	    /* Paket-Preis und Zeit Addieren*/
-		for(Package packages : packagesList2) {
-			gesamtPreis = gesamtPreis + Integer.parseInt(packages.getPackagePreis());
-			lieferTage = lieferTage +  Integer.parseInt(packages.getPackageLieferZeit());
-		}
-		 c.add(Calendar.DATE, lieferTage);
-		lieferDatum = c.getTime();
-		System.out.println("Gesamtpreis: " + gesamtPreis +  "€."  + german.space + " Vorraussichtliche Lieferung: " + dateFormat.format(lieferDatum));
-	}
-
 }
