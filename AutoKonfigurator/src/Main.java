@@ -54,35 +54,8 @@ public class Main {
 		/* Start*/
 		System.out.print(german.hello);
 		System.out.print(german.breaks);
+		chosenFrame = helper.chooseFrame(framesList);
 
-		/* Rahmen aussuchen */
-		while(!frameSure) {
-			System.out.print(german.choseFrame);
-			System.out.print(german.breaks);
-			
-			/* Rahmen auflisten */
-			helper.giveFramesList(framesList);
-			
-			/* Rahmen waehlen */
-			System.out.print(german.frameNr);
-			frameNr = scan.nextInt();
-			System.out.print(german.areYouSure);
-			answer = scan.next();
-			if (answer.equalsIgnoreCase("Ja") || answer.equalsIgnoreCase("J") || answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("Yes") ){
-				/* Gewaehlten Frame eintragen */
-				chosenFrame = framesList.get(frameNr -1);
-				frameSure = true;
-				for(int i = 0; i<8; i++) {
-					System.out.print(german.breaks);
-				}
-			}
-			else {
-				for(int i = 0; i<8; i++) {
-					System.out.print(german.breaks);
-				}
-			}
-			
-		}
 		/* Pakete waehlen */
 		while(!packageSure) {
 			/* zuvor gewaehlten Rahmen anzeigen*/
@@ -94,37 +67,8 @@ public class Main {
 			System.out.print(german.chosePackage);
 			System.out.print(german.breaks);
 
-			while(!packageFull) {
-				/* PAkete auflisten */
-				helper.givePackagesList(packagesList);
-				
-				/* Paket waehlen */
-				System.out.print(german.packageNr);
-				packageNr = scan.nextInt();
-				System.out.print(german.areYouSure);
-				answer = scan.next();
-				if (answer.equalsIgnoreCase("Ja") || answer.equalsIgnoreCase("J") || answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("Yes") ){
-					/* Gewaehltes Paket eintragen */
-					chosenPackageList.add(packagesList.get(packageNr -1));
-					/* Gewaehltes Paket aus temporaerer Liste nehmen */
-					packagesList.remove(packageNr - 1);
-					packageSure = true;
-					for(int i = 0; i<8; i++) {System.out.print(german.breaks);}
-				}
-				else {
-					for(int i = 0; i<8; i++) {System.out.print(german.breaks);}
-				}
-				/* Weiteres Paket Waehlen */
-				System.out.print(german.anotherPackage);
-				answer = scan.next();
-				System.out.print(german.breaks);
-				if (answer.equalsIgnoreCase("Ja") || answer.equalsIgnoreCase("J") || answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("Yes") ){
-					/* repeat loop */					
-				}
-				else {
-					packageFull = true;
-				}				
-			}
+			chosenPackageList = helper.choosePackages(packagesList);
+			packageSure = true;
 			for(int i = 0; i<8; i++) {System.out.print(german.breaks);}
 			System.out.print(german.pickedFrame + german.breaks + german.space + chosenFrame.getFrameName() + german.space + german.delTime + chosenFrame.getFrameLieferZeit() + german.days + german.space + german.price + chosenFrame.getFramePreis() + german.breaks);
 
