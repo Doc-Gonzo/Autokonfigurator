@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="AutoKonfigurator/src"/>
+	<classpathentry kind="lib" path="AutoKonfigurator/Jar2/Autokonfigurator.jar"/>
+	<classpathentry kind="lib" path="AutoKonfigurator/Packed/Autokonfigurator.jar"/>
+	<classpathentry kind="output" path="AutoKonfigurator/bin"/>
+</classpath>
