@@ -31,7 +31,7 @@ public class Main {
 		/* Arraylists erstellen */
 		ArrayList<Frame> framesList = new ArrayList<>(1);
 		ArrayList<Package> packagesList = new ArrayList<>(1);
-		
+		/* haha */
 		/* Frames einlesen*/
 		  String line  = brFrames.readLine();		
 		  while (line != null)
